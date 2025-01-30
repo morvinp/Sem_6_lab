@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculator</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <style>
+        /* Body and general styling */
+        body {
+            background-color: #121212;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            color: #fff;
+            font-family: Arial, sans-serif;
+            margin: 0;
+        }
+
+        /* Calculator container */
+        #calculator {
+            background-color: #1e1e1e;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+        }
+
+        /* Display */
+        #display {
+            background-color: #333;
+            color: #fff;
+            font-size: 2rem;
+            text-align: center;
+            padding: 8px;
+            margin-bottom: 10px;
+            border: none;
+            width: auto;
+            border-radius: 5px;
+        }
+
+        /* Table layout for buttons */
+        table {
+            width: 100%;
+            border-spacing: 10px;
+        }
+
+        /* Button styling */
+        .button {
+            background-color: #444;
+            color: #fff;
+            border: 1px solid #333;
+            padding: 20px;
+            font-size: 1.5rem;
+            width: 60px;
+            height: 60px;
+            border-radius: 5px;
+            cursor: pointer;
+            text-align: center;
+        }
+
+        .button:hover {
+            background-color: #555;
+        }
+
+        #equal {
+            background-color: #4c63af;
+        }
+
+        #equal:hover {
+            background-color: #4556a0;
+        }
+
+        #clear {
+            background-color: #f44336;
+        }
+
+        #clear:hover {
+            background-color: #e53935;
+        }
+    </style>
+</head>
+<body>
+    <div id="calculator">
+        <!-- Display -->
+        <input type="text" id="display" disabled />
+
+        <!-- Button layout using a table -->
+        <table>
+            <tr>
+                <td><button class="button">7</button></td>
+                <td><button class="button">8</button></td>
+                <td><button class="button">9</button></td>
+                <td><button class="button">/</button></td>
+                <td><button class="button" id="clear">C</button></td>
+            </tr>
+            <tr>
+                <td><button class="button">4</button></td>
+                <td><button class="button">5</button></td>
+                <td><button class="button">6</button></td>
+                <td><button class="button">*</button></td>
+            </tr>
+            <tr>
+                <td><button class="button">1</button></td>
+                <td><button class="button">2</button></td>
+                <td><button class="button">3</button></td>
+                <td><button class="button">-</button></td>
+            </tr>
+            <tr>
+                <td><button class="button">0</button></td>
+                <td><button class="button">.</button></td>
+                <td><button class="button" id="equal">=</button></td>
+                <td><button class="button">+</button></td>
+            </tr>
+        </table>
+    </div>
+
+    <script>
+        $(document).ready(function() {
+            let currentInput = "";
+
+            $(".button").not("#clear").not("#equal").click(function() {
+                currentInput += $(this).text();
+                $("#display").val(currentInput);
+            });
+
+            $("#clear").click(function() {
+                currentInput = "";
+                $("#display").val(currentInput);
+            });
+
+            $("#equal").click(function() {
+                try {
+                    currentInput = eval(currentInput).toString();
+                    $("#display").val(currentInput);
+                } catch (e) {
+                    $("#display").val("Error");
+                    currentInput = "";
+                }
+            });
+        });
+    </script>
+</body>
+</html>

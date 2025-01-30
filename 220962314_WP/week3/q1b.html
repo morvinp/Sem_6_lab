@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simple Quiz</title>
+</head>
+<body>
+    <h1>Online Quiz</h1>
+
+    <div id="quiz-container">
+        <p id="question"></p>
+        <button onclick="checkAnswer('A')">A</button>
+        <button onclick="checkAnswer('B')">B</button>
+        <button onclick="checkAnswer('C')">C</button>
+        <button onclick="checkAnswer('D')">D</button>
+    </div>
+
+    <h2 id="result"></h2>
+
+    <script>
+        let questions = [
+            {
+                question: "Which country is known as the Land of the Rising Sun?",
+                options: ["A. Japan", "B. China", "C. South Korea", "D. Thailand"],
+                correctAnswer: "A"
+            },
+            {
+                question: "What is the largest mammal in the world?",
+                options: ["A. African Elephant", "B. Blue Whale", "C. Giraffe", "D. Whale Shark"],
+                correctAnswer: "B"
+            },
+            {
+                question: "What is the chemical symbol for water?",
+                options: ["A. CO2", "B. O2", "C. H2O", "D. H2O2"],
+                correctAnswer: "C"
+            }
+        ];
+
+        let currentQuestion = 0;
+        let score = 0;
+
+        function loadQuestion() {
+            if (currentQuestion < questions.length) {
+                document.getElementById('question').textContent = questions[currentQuestion].question;
+                let buttons = document.querySelectorAll('button');
+                buttons[0].textContent = questions[currentQuestion].options[0];
+                buttons[1].textContent = questions[currentQuestion].options[1];
+                buttons[2].textContent = questions[currentQuestion].options[2];
+                buttons[3].textContent = questions[currentQuestion].options[3];
+            } else {
+                document.getElementById('quiz-container').style.display = 'none';
+                document.getElementById('result').textContent = "Your Score: " + score + "/" + questions.length;
+            }
+        }
+
+        function checkAnswer(selectedAnswer) {
+            if (selectedAnswer === questions[currentQuestion].correctAnswer) {
+                score++;
+            }
+            currentQuestion++;
+            loadQuestion();
+        }
+
+        loadQuestion(); // Load the first question when the page loads
+    </script>
+</body>
+</html>

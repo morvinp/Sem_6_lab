@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Grade Calculator</title>
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #e0f7fa;
+            color: #333;
+            margin: 0;
+            padding: 20px;
+        }
+        h1 {
+            font-size: 2em;
+            color: #00695c;
+            margin-bottom: 20px;
+        }
+        .container {
+            max-width: 400px;
+            margin: 0 auto;
+            background-color: #ffffff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        label {
+            font-size: 1.1em;
+            color: #00796b;
+            margin-bottom: 8px;
+            display: inline-block;
+        }
+        input[type="number"] {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0 20px 0;
+            border: 2px solid #00796b;
+            border-radius: 4px;
+            font-size: 1em;
+            color: #333;
+        }
+        input[type="number"]:focus {
+            border-color: #004d40;
+            outline: none;
+        }
+        button {
+            width: 100%;
+            padding: 12px;
+            background-color: #00796b;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            font-size: 1.1em;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #004d40;
+        }
+        .result {
+            margin-top: 20px;
+            font-size: 1.2em;
+            font-weight: bold;
+            color: #00796b;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Grade Calculator</h1>
+
+    <div class="container">
+        <label for="marks1">Subject 1 Marks:</label>
+        <input type="number" id="marks1" min="0" max="100"><br>
+
+        <label for="marks2">Subject 2 Marks:</label>
+        <input type="number" id="marks2" min="0" max="100"><br>
+
+        <label for="marks3">Subject 3 Marks:</label>
+        <input type="number" id="marks3" min="0" max="100"><br>
+
+        <label for="marks4">Subject 4 Marks:</label>
+        <input type="number" id="marks4" min="0" max="100"><br>
+
+        <button onclick="calculateGrade()">Calculate Grade</button>
+
+        <div class="result" id="result"></div>
+    </div>
+
+    <script>
+        function calculateGrade() {
+            // Get the marks from the input fields
+            var marks1 = parseFloat(document.getElementById('marks1').value);
+            var marks2 = parseFloat(document.getElementById('marks2').value);
+            var marks3 = parseFloat(document.getElementById('marks3').value);
+            var marks4 = parseFloat(document.getElementById('marks4').value);
+
+            // Check if the inputs are valid numbers
+            if (isNaN(marks1) || isNaN(marks2) || isNaN(marks3) || isNaN(marks4)) {
+                document.getElementById('result').textContent = "Please enter valid marks for all subjects.";
+                return;
+            }
+
+            // Calculate the average
+            var average = (marks1 + marks2 + marks3 + marks4) / 4;
+
+            // Determine the grade based on the average
+            var grade = "";
+            if (average > 90) {
+                grade = "A";
+            } else if (average > 80) {
+                grade = "B";
+            } else if (average > 70) {
+                grade = "C";
+            } else if (average > 60) {
+                grade = "D";
+            } else {
+                grade = "F";  // This is for average <= 60
+            }
+
+            // Display the result
+            document.getElementById('result').textContent = "Average: " + average.toFixed(2) + " | Grade: " + grade;
+        }
+    </script>
+
+</body>
+</html>

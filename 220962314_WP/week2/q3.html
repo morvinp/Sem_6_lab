@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bootstrap Webpage</title>
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <style>
+        body {
+            padding-top: 50px;
+            padding-bottom: 50px;
+        }
+
+        .top-section {
+            background-color: #f8f9fa;
+            padding: 30px;
+            margin-bottom: 30px;
+        }
+
+        .bottom-section {
+            padding: 20px 0;
+        }
+
+        .col {
+            padding: 20px;
+            background-color: #e9ecef;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            margin-bottom: 20px;
+        }
+
+        .input-group {
+            margin-bottom: 20px;
+        }
+
+        .badge {
+            background-color: #17a2b8;
+        }
+
+        .btn-group {
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Top Section -->
+    <div class="container top-section">
+        <div class="row">
+            <div class="col-md-12 text-center">
+                <h2>Bootstrap Page Design</h2>
+                <p>Divided into top and bottom sections with different components</p>
+                
+                <!-- Input Group Example -->
+                <div class="input-group input-group-lg">
+                    <span class="input-group-addon" id="basic-addon1">@</span>
+                    <input type="text" class="form-control" placeholder="Username" aria-describedby="basic-addon1">
+                </div>
+
+                <!-- Badge Example -->
+                <h4>
+                    <span class="badge">New</span>
+                    <span class="badge">Popular</span>
+                    <span class="badge">Limited</span>
+                </h4>
+
+                <!-- Button Example -->
+                <button class="btn btn-primary btn-lg">Primary Button</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bottom Section -->
+    <div class="container bottom-section">
+        <div class="row">
+            <!-- First Column (Sign Up) -->
+            <div class="col-md-4">
+                <h3>Sign Up</h3>
+                <!-- Sign Up Form Example -->
+                <div class="input-group">
+                    <input type="text" class="form-control" placeholder="Enter Username">
+                </div>
+
+                <div class="input-group">
+                    <input type="password" class="form-control" placeholder="Enter Password">
+                </div>
+
+                <div class="input-group">
+                    <input type="password" class="form-control" placeholder="Confirm Password">
+                </div>
+
+                <button class="btn btn-success btn-lg">Sign In</button>
+            </div>
+
+            <!-- Second Column (Login & Password) -->
+            <div class="col-md-4">
+                <h3>Login & Password</h3>
+                <!-- Login Form with Password Example -->
+                <div class="input-group">
+                    <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+                    <input type="text" class="form-control" placeholder="Username">
+                </div>
+
+                <div class="input-group">
+                    <span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
+                    <input type="password" class="form-control" placeholder="Password">
+                </div>
+
+                <button class="btn btn-primary btn-lg">Login</button>
+            </div>
+
+            <!-- Third Column (Option Buttons) -->
+            <div class="col-md-4">
+                <h3>Options</h3>
+                <!-- Button Group for Option 1, Option 2, and Option 3 -->
+                <div class="btn-group-vertical">
+                    <button type="button" class="btn btn-info">Option 1</button>
+                    <button type="button" class="btn btn-info">Option 2</button>
+                    <button type="button" class="btn btn-info">Option 3</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bootstrap JS (necessary for certain components like dropdowns) -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+</body>
+</html>
