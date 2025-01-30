@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Student bio-data form</title>
+    </head>
+    <style>
+    .form-container{
+        text-align: center;
+        background-color: antiquewhite;
+        margin: auto;
+        padding: auto;
+        border-radius: 4px;
+    }
+    h2 {
+        text-align: center;
+        color: black;
+    }
+    .form-group{
+        text-align: center;
+        margin: auto;
+        /* margin-top: 10%;
+        margin-bottom: 10%; */
+    }
+    .form-group label{
+        display: block;
+        font-weight: bold;
+        color: #555;
+    }
+    .table-container{
+        text-align: center;
+    }
+    .table-container table{
+        margin: auto;
+    }
+    td, th{
+        text-align: center;
+    }
+    </style>
+    <body>
+        <div class = "form-container">
+            <h2>Student Bio-Data form</h2>
+            <form action="#">
+                <div class = "form-group">
+                    <label for = "name">Full Name</label>
+                    <input type="text" id = "name" placeholder="Enter full name" required>
+                </div>
+                <div class="form-group">
+                    <label for= "email">Email Address</label>
+                    <input type="email" id = "email" name = "email" placeholder="Enter email" required>
+                </div>
+                <div class="form-group">
+                    <label for="dob">Date of Birth</label>
+                    <input type="date" id = "dob" name = "dob" required>
+                </div>
+                <div class="form-group">
+                    <label>Hobbies</label>
+                    <div>
+                        <input type="checkbox" id = "reading" name ="hobbies" value = "Reading">
+                        <label for="reading">Reading</label>
+                    </div>
+                    <div>
+                        <input type ="checkbox" id = 'sports' name ="hobbies" value = "Sports">
+                        <label for="Sports">Sports</label>
+                    </div>
+                    <div>
+                        <input type = "checkbox" id = "music" name ="hobbies" value="Music">
+                        <label for="music">Music</label>
+                    </div>
+                </div>
+                <div class = "form-group">
+                    <button type="submit">Submit</button>
+                </div>
+            </form>
+            <div class="table-container">
+                <h3>Student Information</h3>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Email</th>
+                            <th>Date of Birth</th>
+                            <th>Gender</th>
+                            <th>Hobbies</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>someone</td>
+                            <td>sm@example.com</td>
+                            <td>2000-01-01</td>
+                            <td>Male</td>
+                            <td>Reading, Sports</td>
+                        </tr>
+                        <tr>
+                            <td>another one</td>
+                            <td>ao@example.com</td>
+                            <td>1999-05-15</td>
+                            <td>Female</td>
+                            <td>Music</td>
+                        </tr>
+                    </tbody>
+                </table>
+                </div>
+        </div>
+    </body>
+</html>

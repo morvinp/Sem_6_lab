@@ -8,6 +8,7 @@
 <body>
     <h1>Online Quiz</h1>
 
+    <!-- Quiz container that holds the question and answer buttons -->
     <div id="quiz-container">
         <p id="question"></p>
         <button onclick="checkAnswer('A')">A</button>
@@ -16,9 +17,11 @@
         <button onclick="checkAnswer('D')">D</button>
     </div>
 
+    <!-- Display the final score here -->
     <h2 id="result"></h2>
 
     <script>
+        // Array of quiz questions, each with options and the correct answer
         let questions = [
             {
                 question: "Which country is known as the Land of the Rising Sun?",
@@ -37,29 +40,37 @@
             }
         ];
 
+        // Track the current question index and user's score
         let currentQuestion = 0;
         let score = 0;
 
+        // Function to load a question into the quiz container
         function loadQuestion() {
             if (currentQuestion < questions.length) {
+                // Set the question text
                 document.getElementById('question').textContent = questions[currentQuestion].question;
+                console.log(questions[currentQuestion]);
+                // Select all buttons and set their text to the corresponding options
                 let buttons = document.querySelectorAll('button');
                 buttons[0].textContent = questions[currentQuestion].options[0];
                 buttons[1].textContent = questions[currentQuestion].options[1];
                 buttons[2].textContent = questions[currentQuestion].options[2];
                 buttons[3].textContent = questions[currentQuestion].options[3];
             } else {
+                // Hide the quiz container and display the final score
                 document.getElementById('quiz-container').style.display = 'none';
                 document.getElementById('result').textContent = "Your Score: " + score + "/" + questions.length;
             }
         }
 
+        // Function to check the selected answer
         function checkAnswer(selectedAnswer) {
+            // Compare selected answer with the correct answer
             if (selectedAnswer === questions[currentQuestion].correctAnswer) {
-                score++;
+                score++; // Increase score if correct
             }
-            currentQuestion++;
-            loadQuestion();
+            currentQuestion++; // Move to the next question
+            loadQuestion(); // Load the next question
         }
 
         loadQuestion(); // Load the first question when the page loads
