@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Computer-Themed Online Quiz</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f4f4f9;
+            padding: 20px;
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .quiz-container {
+            background-color: #fff;
+            padding: 30px;
+            border-radius: 10px;
+            max-width: 600px;
+            width: 100%;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            text-align: center;
+            color: #4CAF50;
+        }
+
+        .question {
+            font-weight: bold;
+            font-size: 20px;
+            margin-bottom: 15px;
+        }
+
+        .options {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        .options li {
+            margin: 10px 0;
+            font-size: 18px;
+        }
+
+        input[type="radio"], input[type="text"] {
+            margin-right: 10px;
+        }
+
+        button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            width: 100%;
+            font-size: 16px;
+        }
+
+        button:hover {
+            background-color: #45a049;
+        }
+
+        .footer {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        #result {
+            text-align: center;
+            font-size: 18px;
+            margin-top: 20px;
+            font-weight: bold;
+            color: #333;
+        }
+    </style>
+</head>
+<body>
+    <div class="quiz-container">
+        <h1>Computer-Themed Quiz</h1>
+        <div id="quiz"></div>
+        <button id="next-btn">Next</button>
+        <button id="submit-btn" style="display:none;">Submit</button>
+        <div id="result"></div>
+    </div>
+
+    <script>
+        const quizData = [
+            {
+                question: "Which company developed the Windows operating system?",
+                options: ["Apple", "Microsoft", "Google", "IBM"],
+                answer: 1
+            },
+            {
+                question: "What does 'HTML' stand for?",
+                options: ["HyperText Markup Language", "HyperText Machine Language", "HighText Markup Language", "HyperType Markup Language"],
+                answer: 0
+            },
+            {
+                question: "Which programming language is known as the mother of all languages?",
+                options: ["C", "Java", "Python", "Assembly"],
+                answer: 0
+            },
+            {
+                question: "Who is the creator of Linux?",
+                options: ["Bill Gates", "Linus Torvalds", "Steve Jobs", "Mark Zuckerberg"],
+                answer: 1
+            },
+            {
+                question: "Fill in the blank: The first computer virus was called ________.",
+                answer: "Creeper" // The answer for fill-in-the-blank
+            }
+        ];
+
+        let currentQuestion = 0;
+        let score = 0;
+
+        function loadQuestion() {
+            const quizContainer = document.getElementById("quiz");
+            if (currentQuestion === quizData.length - 1) {
+                // For the last question (fill-in-the-blank)
+                quizContainer.innerHTML = `
+                    <div class="question">${quizData[currentQuestion].question}</div>
+                    <input type="text" id="answer-input" placeholder="Enter your answer">
+                `;
+            } else {
+                // For multiple choice questions
+                quizContainer.innerHTML = `
+                    <div class="question">${quizData[currentQuestion].question}</div>
+                    <ul class="options">
+                        ${quizData[currentQuestion].options.map((option, index) => `
+                            <li>
+                                <input type="radio" name="option" value="${index}" id="option-${index}">
+                                <label for="option-${index}">${option}</label>
+                            </li>
+                        `).join('')}
+                    </ul>
+                `;
+            }
+
+            document.getElementById("next-btn").style.display = currentQuestion === quizData.length - 1 ? 'none' : 'block';
+            document.getElementById("submit-btn").style.display = currentQuestion === quizData.length - 1 ? 'block' : 'none';
+        }
+
+        function calculateScore() {
+            if (currentQuestion === quizData.length - 1) {
+                // For the last fill-in-the-blank question
+                const userAnswer = document.getElementById("answer-input").value.trim().toLowerCase();
+                if (userAnswer === quizData[currentQuestion].answer.toLowerCase()) {
+                    score++;
+                }
+            } else {
+                // For multiple choice questions
+                const selectedOption = document.querySelector('input[name="option"]:checked');
+                if (selectedOption) {
+                    const answer = parseInt(selectedOption.value);
+                    if (answer === quizData[currentQuestion].answer) {
+                        score++;
+                    }
+                }
+            }
+        }
+
+        function showResult() {
+            const resultContainer = document.getElementById("result");
+            resultContainer.innerHTML = `Your score: ${score} out of ${quizData.length}`;
+        }
+
+        document.getElementById("next-btn").addEventListener("click", () => {
+            calculateScore();
+            currentQuestion++;
+            if (currentQuestion < quizData.length) {
+                loadQuestion();
+            }
+        });
+
+        document.getElementById("submit-btn").addEventListener("click", () => {
+            calculateScore();
+            showResult();
+            document.getElementById("next-btn").style.display = 'none';
+            document.getElementById("submit-btn").style.display = 'none';
+        });
+
+        loadQuestion();
+    </script>
+</body>
+</html>

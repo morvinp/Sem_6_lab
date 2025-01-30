@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Birthday Card Designer</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <style>
+        /* Basic styles for layout */
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: space-around;
+            padding: 20px;
+            background-color: #f4f4f4;
+            height: 100vh;
+        }
+
+        .left-panel, .right-panel {
+            width: 45%;
+        }
+
+        .left-panel {
+            padding: 20px;
+            background-color: #ffffff;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .right-panel {
+            padding: 20px;
+            background-color: #ffffff;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+
+        h2 {
+            text-align: center;
+        }
+
+        label {
+            font-size: 1.1rem;
+            margin-top: 10px;
+            display: block;
+        }
+
+        select, input[type="text"], input[type="number"], button {
+            width: 100%;
+            padding: 10px;
+            margin-top: 8px;
+            font-size: 1rem;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+
+        input[type="radio"], input[type="checkbox"] {
+            margin-right: 5px;
+        }
+
+        .card {
+            width: 300px;
+            height: 400px;
+            margin-top: 20px;
+            display: inline-block;
+            border-radius: 10px;
+            position: relative;
+            padding: 20px;
+            text-align: center;
+        }
+
+        .card img {
+            width: 100%;
+            height: auto;
+            margin-top: 20px;
+            border-radius: 8px;
+        }
+
+        .card .happy-birthday-text {
+            font-size: 2rem;
+            font-family: Arial, sans-serif;
+            color: #333;
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="left-panel">
+        <h2>Design Your Birthday Card</h2>
+        
+        <!-- Dropdown for background color -->
+        <label for="bgColor">Choose Background Color:</label>
+        <select id="bgColor">
+            <option value="lightblue">Light Blue</option>
+            <option value="lightgreen">Light Green</option>
+            <option value="lightyellow">Light Yellow</option>
+            <option value="pink">Pink</option>
+            <option value="lavender">Lavender</option>
+        </select>
+
+        <!-- Dropdown for font style -->
+        <label for="fontStyle">Choose Font Style:</label>
+        <select id="fontStyle">
+            <option value="Arial">Arial</option>
+            <option value="Georgia">Georgia</option>
+            <option value="Courier">Courier</option>
+            <option value="Times New Roman">Times New Roman</option>
+            <option value="Verdana">Verdana</option>
+        </select>
+
+        <!-- Input for font size -->
+        <label for="fontSize">Choose Font Size:</label>
+        <input type="number" id="fontSize" min="10" max="100" value="30">
+
+        <!-- Radio buttons for border style -->
+        <label>Choose Border Style:</label>
+        <input type="radio" name="borderStyle" value="none" checked> None
+        <input type="radio" name="borderStyle" value="solid"> Solid
+        <input type="radio" name="borderStyle" value="double"> Double
+
+        <!-- Checkbox to add image -->
+        <label for="addImage">
+            <input type="checkbox" id="addImage"> Add Default Image
+        </label>
+
+        <!-- Text input for the "Happy Birthday" text -->
+        <label for="cardText">Enter "Happy Birthday" Text:</label>
+        <input type="text" id="cardText" placeholder="Happy Birthday!">
+
+        <!-- Submit button -->
+        <button id="applyButton">Apply Design</button>
+    </div>
+
+    <div class="right-panel">
+        <h2>Your Card Design</h2>
+
+        <!-- Card preview -->
+        <div id="cardPreview" class="card">
+            <div id="happyBirthdayText" class="happy-birthday-text">Happy Birthday!</div>
+            <img id="cardImage" src="" alt="" style="display: none;">
+        </div>
+    </div>
+
+    <script>
+        $(document).ready(function() {
+            // Function to update the card preview
+            $("#applyButton").click(function() {
+                // Get user inputs
+                const bgColor = $("#bgColor").val();
+                const fontStyle = $("#fontStyle").val();
+                const fontSize = $("#fontSize").val();
+                const borderStyle = $("input[name='borderStyle']:checked").val();
+                const addImage = $("#addImage").prop("checked");
+                const cardText = $("#cardText").val();
+
+                // Update the background color of the card
+                $("#cardPreview").css("background-color", bgColor);
+
+                // Update font style and size
+                $("#happyBirthdayText").css({
+                    "font-family": fontStyle,
+                    "font-size": fontSize + "px"
+                });
+
+                // Update border style of the card
+                if (borderStyle === "none") {
+                    $("#cardPreview").css("border", "none");
+                } else {
+                    $("#cardPreview").css("border", "5px " + borderStyle + " #333");
+                }
+
+                // Update the "Happy Birthday" text
+                $("#happyBirthdayText").text(cardText);
+
+                // Show image if the checkbox is checked
+                if (addImage) {
+                    $("#cardImage").attr("src", "image.jpg").show();
+                } else {
+                    $("#cardImage").hide();
+                }
+            });
+        });
+    </script>
+
+</body>
+</html>

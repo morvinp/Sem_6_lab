@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Table and Image Move</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #121212;
+            color: #fff;
+            font-family: Arial, sans-serif;
+        }
+
+        #content {
+            position: relative;
+            display: inline-block;
+            overflow: hidden;
+            text-align: center;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 0 auto; 
+            background-color: #1e1e1e; 
+            color: #fff; 
+        }
+
+        th, td {
+            padding: 10px;
+            text-align: center;
+            border: 1px solid #333; 
+        }
+
+        tr:nth-child(odd) {
+            background-color: #333;
+        }
+
+        #myImage {
+            margin-top: 20px;
+            width: 150px;
+            height: 150px;
+            border-radius: 8px; 
+        }
+
+        #moveButton {
+            margin-top: 20px;
+            padding: 10px 20px;
+            background-color: #185079;
+            color: white;
+            border: none;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+
+        #moveButton:hover {
+            background-color: #4574a0;
+        }
+
+        #moveButton:active {
+            background-color: #3e4a8e;
+        }
+
+    </style>
+</head>
+<body>  
+    <div id="content">
+        <table id="myTable">
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Age</th>
+                    <th>Sem</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Abc</td>
+                    <td>33</td>
+                    <td>4</td>
+                </tr>
+                <tr>
+                    <td>Bcd</td>
+                    <td>22</td>
+                    <td>2</td>
+                </tr>
+                <tr>
+                    <td>Cde</td>
+                    <td>16</td>
+                    <td>1</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <img src="image.jpg" alt="Placeholder Image" id="myImage">
+
+        <button id="moveButton">Move Right to Left</button>
+    </div>
+
+    <script>
+        $(document).ready(function() {
+
+            $('#moveButton').click(function() {
+                setInterval(function() {
+                    $('#content').animate({
+                        left: '-100%'
+                    }, 4000, function() {
+                        direction = 'right'; 
+                        $('#content').css('left', '100%');
+                    });
+                }, 2000);
+            });
+        });
+    </script>
+</body>
+</html>

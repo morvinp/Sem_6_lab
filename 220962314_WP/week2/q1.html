@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Bio-Data Form</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f9;
+            margin: 0;
+            padding: 0;
+        }
+
+        .form-container {
+            width: 80%;
+            max-width: 800px;
+            margin: 50px auto;
+            background-color: #ffffff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        h2 {
+            text-align: center;
+            color: #333;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+            display: flex;
+            flex-direction: column;
+            align-items: center; /* Center vertically */
+        }
+
+        .form-group label {
+            display: block;
+            font-weight: bold;
+            color: #555;
+        }
+
+        .form-group input[type="text"], 
+        .form-group input[type="email"], 
+        .form-group input[type="date"] {
+            width: 100%;
+            max-width: 90%; /* Optional: Adjust if necessary to ensure the fields don't extend too far */
+            padding: 8px;
+            margin-top: 5px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+
+        .form-group input[type="radio"] {
+            width: auto;
+            margin-right: 10px;
+        }
+
+        .radio-group {
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+        }
+
+        .radio-group label {
+            margin-right: 15px;
+            font-weight: normal;
+        }
+
+        .form-group input[type="checkbox"] {
+            width: auto;
+            margin-right: 15px;
+        }
+
+        /* Style for checkbox to make them inline */
+        .checkbox-group {
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+        }
+
+        .checkbox-group input[type="checkbox"] {
+            margin-right: 10px;
+        }
+
+        .form-group button {
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            text-align: center;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            width: 100%;
+        }
+
+        .form-group button:hover {
+            background-color: #45a049;
+        }
+
+        .table-container {
+            margin-top: 20px;
+            width: 100%;
+            text-align: center;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
+        }
+
+        table, th, td {
+            border: 1px solid #ddd;
+        }
+
+        th, td {
+            padding: 8px;
+            text-align: center;
+        }
+
+        th {
+            background-color: #f2f2f2;
+        }
+
+        /* Ensuring the form is centered on smaller screens */
+        @media (max-width: 768px) {
+            .form-container {
+                width: 90%;
+                margin: 20px auto;
+                padding: 15px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="form-container">
+        <h2>Student Bio-Data Form</h2>
+        <form action="#">
+            <!-- Name Field -->
+            <div class="form-group">
+                <label for="name">Full Name</label>
+                <input type="text" id="name" name="name" placeholder="Enter full name" required>
+            </div>
+
+            <!-- Email Field -->
+            <div class="form-group">
+                <label for="email">Email Address</label>
+                <input type="email" id="email" name="email" placeholder="Enter email" required>
+            </div>
+
+            <!-- Date of Birth -->
+            <div class="form-group">
+                <label for="dob">Date of Birth</label>
+                <input type="date" id="dob" name="dob" required>
+            </div>
+
+            <!-- Gender Radio Buttons -->
+            <div class="form-group">
+                <label>Gender</label>
+                <div class="radio-group">
+                    <div>
+                        <input type="radio" id="male" name="gender" value="Male">
+                        <label for="male">Male</label>
+                    </div>
+                    <div>
+                        <input type="radio" id="female" name="gender" value="Female">
+                        <label for="female">Female</label>
+                    </div>
+                    <div>
+                        <input type="radio" id="other" name="gender" value="Other">
+                        <label for="other">Other</label>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Hobbies Checkboxes -->
+            <div class="form-group">
+                <label>Hobbies</label>
+                <div class="checkbox-group">
+                    <div>
+                        <input type="checkbox" id="reading" name="hobbies" value="Reading">
+                        <label for="reading">Reading</label>
+                    </div>
+                    <div>
+                        <input type="checkbox" id="sports" name="hobbies" value="Sports">
+                        <label for="sports">Sports</label>
+                    </div>
+                    <div>
+                        <input type="checkbox" id="music" name="hobbies" value="Music">
+                        <label for="music">Music</label>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Submit Button -->
+            <div class="form-group">
+                <button type="submit">Submit</button>
+            </div>
+        </form>
+
+        <!-- Table Displaying Student Information -->
+        <div class="table-container">
+            <h3>Student Information</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Email</th>
+                        <th>Date of Birth</th>
+                        <th>Gender</th>
+                        <th>Hobbies</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>someone</td>
+                        <td>sm@example.com</td>
+                        <td>2000-01-01</td>
+                        <td>Male</td>
+                        <td>Reading, Sports</td>
+                    </tr>
+                    <tr>
+                        <td>another one</td>
+                        <td>ao@example.com</td>
+                        <td>1999-05-15</td>
+                        <td>Female</td>
+                        <td>Music</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+</body>
+</html>
