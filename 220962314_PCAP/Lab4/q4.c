@@ -20,8 +20,9 @@ int main(int argc,char* argv[]){
 	// MPI_Reduce(&factans,&factsum,1,MPI_INT,MPI_SUM,0,MPI_COMM_WORLD);
 	int len = rank+1;
 	// printf("%s\t at rank %d",val,rank);
-	char ans[rank+1];
+	char ans[rank+2];
 	for(int i = 0;i<rank+1;i++){
+		// printf("%s\n",ans);
 		ans[i]=val[0];
 	
 	}
@@ -29,15 +30,20 @@ int main(int argc,char* argv[]){
 	char result[100];
 	for(int i=0;i<size;i++){
 		// MPI_Send(&len,1,MPI_INT,i,i,MPI_COMM_WORLD);
-		// printf("I am sending %s at %d",ans,rank);
-		MPI_Send(ans,rank+1,MPI_CHAR,i,i,MPI_COMM_WORLD);
+		// printf("I am sending %s at %d\n",ans,rank);
+		MPI_Send(&len,1,MPI_INT,0,i,MPI_COMM_WORLD);
+		MPI_Send(ans,rank+1,MPI_CHAR,0,i,MPI_COMM_WORLD);
+
 	}
 	char res[100];
+	int lens;
 	if(rank ==0){
 		for(int i = 0;i<size;i++){
-			MPI_Recv(res,i+1,MPI_CHAR,0,i,MPI_COMM_WORLD,&stat);
+			MPI_Recv(&lens,1,MPI_INT,i,i,MPI_COMM_WORLD,&stat);
+			MPI_Recv(res,len,MPI_CHAR,i,i,MPI_COMM_WORLD,&stat);
 			// printf("i am getting %s at rank %d",res,rank);
-			strcat(result,res);
+			// strcat(result,res);
+			printf("Answer is %s\n",res);
 		}
 		printf("%s is the answer hopefully", result);
 	}
