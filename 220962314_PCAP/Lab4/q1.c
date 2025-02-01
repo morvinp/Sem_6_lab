@@ -4,9 +4,10 @@ void ErrorHandler(int error);
 int main(int argc,char* argv[]){
 	int rank, size, fact = 1,factsum, i;
 	MPI_Init(&argc,&argv);
-	MPI_Errhandler_set(MPI_COMM_WORLD,MPI_ERRORS_RETURN);
+	int err = 33333;
+	MPI_Comm_set_errhandler(MPI_COMM_WORLD,MPI_ERRORS_RETURN);
 	MPI_Comm_rank(MPI_COMM_WORLD,&rank);
-	int error=MPI_Comm_size(MPI_COMM_WORLD,&size);
+	int error=MPI_Comm_size(MPI_COMM_WORLD,&err);
 	ErrorHandler(error);
 	// for(i = 1;i<=rank;i++){
 	// 	fact = fact*i;
