@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <style>
+
+    </style>
+</head>
+<body>
+    <div class="left-panel">
+        <h2>Design Your Birthday Card</h2>
+
+        <label for="bgColor">Choose Background Color:</label>
+        <select id="bgColor">
+            <option value="lightblue">Light Blue</option>
+            <option value="lightgreen">Light Green</option>
+            <option value="lightyellow">Light Yellow</option>
+            <option value="pink">Pink</option>
+            <option value="lavender">Lavender</option>
+        </select>
+        <label for="fontStyle">Choose Font Style:</label>
+        <select id="fontStyle">
+            <option value="Arial">Arial</option>
+            <option value="Georgia">Georgia</option>
+            <option value="Courier">Courier</option>
+            <option value="Times New Roman">Times New Roman</option>
+            <option value="Verdana">Verdana</option>
+        </select>
+
+        <!-- Input for font size -->
+        <label for="fontSize">Choose Font Size:</label>
+        <input type="number" id="fontSize" min="10" max="100" value="30">
+
+        <!-- Radio buttons for border style -->
+        <label>Choose Border Style:</label>
+        <input type="radio" name="borderStyle" value="none" checked> None
+        <input type="radio" name="borderStyle" value="solid"> Solid
+        <input type="radio" name="borderStyle" value="double"> Double
+
+        <!-- Checkbox to add image -->
+        <label for="addImage">
+            <input type="checkbox" id="addImage"> Add Default Image
+        </label>
+
+        <!-- Text input for the "Happy Birthday" text -->
+        <label for="cardText">Enter "Happy Birthday" Text:</label>
+        <input type="text" id="cardText" placeholder="Happy Birthday!">
+
+        <!-- Submit button -->
+        <button id="applyButton">Apply Design</button>
+    </div>
+    <div class="right-panel">
+        <h2>Your Card Design</h2>
+
+        <!-- Card preview -->
+        <div id="cardPreview" class="card">
+            <div id="happyBirthdayText" class="happy-birthday-text">Happy Birthday!</div>
+            <img id="cardImage" src="" alt="" style="display: none;">
+        </div>
+    </div>
+
+    <script>
+        $(document).ready(function(){
+            $("#applyButton").click(function(){
+                const bgColor = $("#bgColor").val();
+            })
+        })
+    </script>
+
+</body>
+</html>

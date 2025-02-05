@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+    <style>
+        .container {
+            margin: auto;
+            padding: 5px;
+        }
+    </style>
+    <head>
+        <title>
+            This is the title
+        </title>
+    </head>
+    <body>
+        <h1>Grade Calculator</h1>
+
+        <div class ="container">
+            <label for="marks1">Subject 1 Marks:</label>
+            <input type="number" id="marks1" min="0" max="100"><br>
+
+            <label for="marks2">Subject 2 Marks:</label>
+            <input type="number" id="marks2" min="0" max="100"><br>
+
+            <label for="marks3">Subject 3 Marks:</label>
+            <input type="number" id="marks3" min="0" max="100"><br>
+
+            <label for="marks4">Subject 4 Marks:</label>
+            <input type="number" id="marks4" min="0" max="100"><br>
+
+            <button onclick="calculateGrade()">Calculate Grade</button>
+
+        
+            <div class="result" id="result"></div>
+        </div>
+        <script>
+            function calculateGrade(){
+                var marks1 = parseFloat(document.getElementById('marks1').value);
+                var marks2 = parseFloat(document.getElementById('marks2').value);
+                var marks3 = parseFloat(document.getElementById('marks3').value);
+                var marks4 = parseFloat(document.getElementById('marks4').value);
+
+                if (isNaN(marks1) || isNaN(marks2) || isNaN(marks3) || isNaN(marks4)) {
+                document.getElementById('result').textContent = "Please enter valid marks for all subjects.";
+                return;
+            }
+            var average = (marks1+marks2+marks3+marks4)/4;
+
+            var grade = "";
+            if (average > 90) {
+                grade = "A";
+            } else if (average > 80) {
+                grade = "B";
+            } else if (average > 70) {
+                grade = "C";
+            } else if (average > 60) {
+                grade = "D";
+            } else {
+                grade = "F";  // This is for average <= 60
+            }
+
+            document.getElementById("result").textContent = "Average: " + average.toFixed(2) + "| Grade : "+grade;
+        }
+        </script>
+    </body>
+</html>
