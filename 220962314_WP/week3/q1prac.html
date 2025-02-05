@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+
+<html>
+    <style>
+
+    </style>
+    <head>
+        <title>
+            This is the title
+        </title>
+    </head>
+    <body>
+        <h1>Computer Quiz</h1>
+        <div id="quiz-container">
+            <p id="question"></p>
+            <button onclick="checkAnswer('A')">A</button>
+            <button onclick="checkAnswer('B')">B</button>
+            <button onclick="checkAnswer('C')">C</button>
+            <button onclick="checkAnswer('D')">D</button>
+        </div>
+        <h2 id="result"></h2>
+        <script>
+            let quizdata =[
+                {
+                    question: "which company developed the Windows operating system?",
+                    options: ["Apple","Microsoft","Google","IBM"],
+                    answer : "A"
+                },
+                {
+                    question: "What does 'HTML' stand for?",
+                    options: ["HyperText Markup Language", "HyperText Machine Language", "HighText Markup Language", "HyperType Markup Language"],
+                    answer: "B"
+                },
+                {
+                    question: "Which programming language is known as the mother of all languages?",
+                    options: ["C", "Java", "Python", "Assembly"],
+                    answer: "B"
+                },
+                {
+                    question: "Who is the creator of Linux?",
+                    options: ["Bill Gates", "Linus Torvalds", "Steve Jobs", "Mark Zuckerberg"],
+                    answer: "C"
+                }
+            ];
+
+            let currentQuestion = 0;
+            let score =0;
+
+            function loadQuestion(){
+                if(currentQuestion<quizdata.length){
+                    document.getElementById('question').textContent = quizdata[currentQuestion].question;
+                    console.log(quizdata[currentQuestion]);
+                    let buttons = document.querySelectorAll('button');
+                    buttons[0].textContent = quizdata[currentQuestion].options[0];
+                    buttons[1].textContent = quizdata[currentQuestion].options[1];
+                    buttons[2].textContent = quizdata[currentQuestion].options[2];
+                    buttons[3].textContent = quizdata[currentQuestion].options[3];
+                }else{
+                    document.getElementById('quiz-container').style.display = 'none';
+                    document.getElementById('result').textContent = "Your score: "+ score + "/" + quizdata.length;
+                }
+            }
+
+            function checkAnswer(selectedAnswer){
+                if(selectedAnswer === quizdata[currentQuestion].answer){
+                    score++;
+                }
+                currentQuestion++;
+                loadQuestion();
+            }
+            loadQuestion();
+        </script>
+    </body>
+</html>

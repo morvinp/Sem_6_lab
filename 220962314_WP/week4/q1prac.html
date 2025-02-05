@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <style>
+        #content{
+            position: relative;
+            text-align: center;
+        }
+    </style>
+    <title>Document</title>
+</head>
+<body>
+    <div id="content">
+        <table id="myTable">
+            <thead>
+                <tr>
+                    <th>name</th>
+                    <th>age</th>
+                    <th>sem</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Abc</td>
+                    <td>33</td>
+                    <td>4</td>
+                </tr>
+                <tr>
+                    <td>Bcd</td>
+                    <td>33</td>
+                    <td>4</td>
+                </tr>
+                <tr>
+                    <td>Cde</td>
+                    <td>33</td>
+                    <td>4</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <img src="image.jpg" alt="Placeholder image" id="myImage">
+
+        <button id="moveButton">Move right to left</button>
+    </div>
+ 
+    <script>
+        $(document).ready(function() {
+
+        $('#moveButton').click(function() {
+            setInterval(function() {
+                $('#content').animate({
+                    left: '-100%'
+                }, 4000, function() {
+                    $('#content').css('left', '100%');
+                });
+            }, 2000);
+        });
+        });
+</script>
+
+</body>
+</html>
