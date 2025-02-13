@@ -1,0 +1,86 @@
+/* General Styles for the body */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+    margin: 0;
+    padding: 0;
+}
+
+/* Center the content */
+.container {
+    width: 100%;
+    max-width: 600px;
+    margin: 50px auto;
+    padding: 20px;
+    background-color: white;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Header style */
+h2 {
+    text-align: center;
+    color: #333;
+    font-size: 24px;
+}
+
+/* Label style */
+label {
+    font-weight: bold;
+    font-size: 16px;
+    color: #333;
+}
+
+/* Form fields */
+select, input[type="date"], button {
+    width: 100%;
+    padding: 12px;
+    margin: 10px 0;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 16px;
+}
+
+/* Submit button */
+button {
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    cursor: pointer;
+    font-size: 18px;
+    font-weight: bold;
+}
+
+button:hover {
+    background-color: #45a049;
+}
+
+/* Result text */
+h3 {
+    text-align: center;
+    font-size: 18px;
+    margin-top: 20px;
+}
+
+/* Style the result message (YES or NO) */
+#promotionResult {
+    font-size: 20px;
+    font-weight: bold;
+}
+
+/* Custom colors for eligibility */
+#promotionResult {
+    color: #333;
+}
+
+#promotionResult.green {
+    color: green;
+}
+
+#promotionResult.red {
+    color: red;
+}
+
+#promotionResult.orange {
+    color: orange;
+}

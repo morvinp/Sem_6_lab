@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Employee Promotion Eligibility</title>
+    <link rel="stylesheet" href="static/css/style.css"> <!-- Link to CSS file -->
+    <script>
+        // Function to calculate years of experience and determine promotion eligibility
+        function checkEligibility() {
+            var dateOfJoining = document.getElementById("doj").value;
+            var employeeId = document.getElementById("employeeId").value;
+            var promotionResult = document.getElementById("promotionResult");
+
+            if (dateOfJoining) {
+                var currentDate = new Date();
+                var joiningDate = new Date(dateOfJoining);
+                var yearsOfExperience = currentDate.getFullYear() - joiningDate.getFullYear();
+
+                // Check if the employee has more than 5 years of experience
+                if (yearsOfExperience > 5) {
+                    promotionResult.innerHTML = "YES";
+                    promotionResult.style.color = "green";
+                } else {
+                    promotionResult.innerHTML = "NO";
+                    promotionResult.style.color = "red";
+                }
+            } else {
+                promotionResult.innerHTML = "Please enter the date of joining.";
+                promotionResult.style.color = "orange";
+            }
+        }
+    </script>
+</head>
+<body>
+    <h2>Employee Promotion Eligibility</h2>
+    
+    <form onsubmit="event.preventDefault(); checkEligibility();">
+        <label for="employeeId">Employee ID:</label>
+        <select id="employeeId" required>
+            <option value="">Select Employee ID</option>
+            <option value="E001">E001</option>
+            <option value="E002">E002</option>
+            <option value="E003">E003</option>
+            <option value="E004">E004</option>
+            <option value="E005">E005</option>
+        </select><br><br>
+
+        <label for="doj">Date of Joining:</label>
+        <input type="date" id="doj" required><br><br>
+
+        <button type="submit">Am I Eligible for Promotion?</button>
+    </form>
+
+    <h3>Eligibility Result: <span id="promotionResult"></span></h3>
+</body>
+</html>

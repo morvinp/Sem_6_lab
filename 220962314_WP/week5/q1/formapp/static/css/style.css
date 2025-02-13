@@ -1,0 +1,69 @@
+/* static/css/style.css */
+
+/* General body styles */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+    margin: 0;
+    padding: 0;
+}
+
+/* Header */
+h2 {
+    text-align: center;
+    color: #333;
+}
+
+/* Form styles */
+form {
+    background-color: #fff;
+    padding: 20px;
+    margin: 20px auto;
+    border-radius: 8px;
+    width: 400px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Input fields */
+input[type="text"], input[type="date"], input[type="email"], input[type="number"], button {
+    width: 100%;
+    padding: 10px;
+    margin: 10px 0;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+/* Submit button */
+button {
+    background-color: #1b421c;
+    color: white;
+    border: none;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+button:hover {
+    background-color: #45a049;
+}
+
+/* Textarea for student details */
+textarea {
+    width: 100%;
+    padding: auto;
+    margin: auto;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+/* Label styles */
+label {
+    font-weight: bold;
+}
+
+/* Center align the percentage label */
+label[for="percentage"] {
+    font-size: 16px;
+    color: #333;
+    display: block;
+    margin-top: 10px;
+}
