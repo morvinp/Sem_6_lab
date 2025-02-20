@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Book Information</title>
+</head>
+<body>
+    <h1>Book Information</h1>
+    <!-- Load static files -->
+    {% load static %}
+    
+    <!-- Now you can use the static tag -->
+    <img src="{% static 'book_cover.jpg' %}" alt="Book Cover" style="width: 200px;">
+    <br><br>
+    <a href="{% url 'metadata' %}">Metadata</a>
+    <a href="{% url 'reviews' %}">Reviews</a>
+    <a href="{% url 'publisher_info' %}">Publisher Info</a>
+</body>
+</html>

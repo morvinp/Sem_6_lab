@@ -1,0 +1,107 @@
+/* General Body and Layout */
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: #121212; /* Dark background */
+    color: #e0e0e0; /* Light text color */
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    text-align: center;
+  }
+  
+  /* Title Styling */
+  h1 {
+    color: #ffffff; /* White text for the heading */
+    font-size: 36px;
+    margin-bottom: 20px;
+  }
+  
+  /* Form Styling */
+  form {
+    background-color: #1f1f1f; /* Dark form background */
+    border-radius: 8px;
+    padding: 30px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.7); /* Subtle shadow for the form */
+    width: 100%;
+    max-width: 600px;
+  }
+  
+  form label {
+    font-size: 16px;
+    margin-bottom: 8px;
+    display: block;
+    text-align: left;
+    color: #ccc; /* Light grey for labels */
+  }
+  
+  form input {
+    background-color: #333; /* Dark background for inputs */
+    color: #fff; /* White text inside inputs */
+    border: 1px solid #444; /* Light border for inputs */
+    border-radius: 4px;
+    padding: 10px;
+    width: 100%;
+    margin-bottom: 20px;
+  }
+  
+  form input[type="file"] {
+    border: none; /* Remove border for file input */
+  }
+  
+  form button {
+    background-color: #6200ea; /* Purple color for the submit button */
+    color: white; /* White text on the button */
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s ease;
+  }
+  
+  form button:hover {
+    background-color: #3700b3; /* Darker purple when hovering */
+  }
+  
+  /* Focused Input Field */
+  form input:focus {
+    border-color: #6200ea; /* Purple border when focused */
+    outline: none;
+  }
+  
+  /* Background Color Picker Styling */
+  input[type="color"] {
+    border: none;
+    padding: 5px;
+    width: 40px;
+    height: 40px;
+    cursor: pointer;
+  }
+  
+  /* Responsive Design */
+  @media (max-width: 768px) {
+    h1 {
+      font-size: 28px; /* Smaller font size on mobile */
+    }
+  
+    form {
+      padding: 20px;
+      width: 90%; /* Make form more compact on smaller screens */
+    }
+  
+    form label {
+      font-size: 14px; /* Smaller labels on mobile */
+    }
+  
+    form input {
+      font-size: 14px; /* Smaller input text */
+    }
+  
+    form button {
+      font-size: 14px; /* Smaller button text */
+    }
+  }
+  

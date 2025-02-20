@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Magazine Cover</title>
+    <style>
+      body {
+          background-color: {{ background_color|safe }};
+          text-align: center;
+      }
+      .cover {
+          position: relative;
+          width: 600px;
+          height: 800px;
+          margin: auto;
+          border: 5px solid black;
+      }
+      .cover img {
+          width: 100%;
+          height: auto;
+      }
+      .title {
+          position: absolute;
+          top: 50px;
+          left: 20px;
+          font-size: {{ font_size|safe }}px;
+          color: {{ font_color|safe }};
+      }
+      .subtitle {
+          position: absolute;
+          top: 100px;
+          left: 20px;
+          font-size: {{ font_size|add:"-10"|safe }}px;
+          color: {{ font_color|safe }};
+      }
+    </style>
+  </head>
+  <body>
+    <div class="cover">
+      <img src="{{ uploaded_file_url }}" alt="Cover Image" />
+      <div class="title">{{ title }}</div>
+      <div class="subtitle">{{ subtitle }}</div>
+    </div>
+  </body>
+</html>

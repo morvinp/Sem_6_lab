@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!DOCTYPE html>
+    <html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Magazine Cover Generator</title>
+        {% load static %}
+        <link rel="stylesheet" type="text/css" href="{% static 'style.css' %}">
+    </head>
+    <body>
+        <h1>Magazine Cover Generator</h1>
+    
+        <!-- Form to generate the magazine cover -->
+        <form method="POST" enctype="multipart/form-data">
+            {% csrf_token %}
+    
+            <!-- Image Upload Section -->
+            <label for="cover_image">Upload Cover Image:</label>
+            <input type="file" name="cover_image" accept="image/*" required><br>
+    
+            <!-- Background Color Picker -->
+            <label for="background_color">Background Color:</label>
+            <input type="color" name="background_color" value="#ffffff" required><br>
+    
+            <!-- Title Text Input -->
+            <label for="title_text">Title Text:</label>
+            <input type="text" name="title_text" required><br>
+    
+            <!-- Title Font Size Input -->
+            <label for="title_font_size">Title Font Size (px):</label>
+            <input type="number" name="title_font_size" value="50" min="20" max="150"><br>
+    
+            <!-- Title Font Color Picker -->
+            <label for="title_font_color">Title Font Color:</label>
+            <input type="color" name="title_font_color" value="#000000"><br>
+    
+            <!-- Subheading Text Input -->
+            <label for="subheading_text">Subheading Text:</label>
+            <input type="text" name="subheading_text"><br>
+    
+            <!-- Subheading Font Size Input -->
+            <label for="subheading_font_size">Subheading Font Size (px):</label>
+            <input type="number" name="subheading_font_size" value="30" min="20" max="100"><br>
+    
+            <!-- Subheading Font Color Picker -->
+            <label for="subheading_font_color">Subheading Font Color:</label>
+            <input type="color" name="subheading_font_color" value="#555555"><br>
+    
+            <!-- Submit Button -->
+            <button type="submit">Generate Cover</button>
+        </form>
+    
+        <!-- Displaying the Generated Cover if available -->
+        {% if cover_image_url %}
+            <h2>Generated Magazine Cover</h2>
+            <div class="cover-container" style="background-color: {{ background_color }};">
+                <!-- Displaying the Uploaded Image -->
+                <img src="{{ cover_image_url }}" alt="Cover Image" class="cover-image">
+    
+                <!-- Displaying Title with Custom Styles -->
+                <h1 style="font-size: {{ title_font_size }}px; color: {{ title_font_color }};">{{ title_text }}</h1>
+    
+                <!-- Displaying Subheading with Custom Styles -->
+                {% if subheading_text %}
+                    <h3 style="font-size: {{ subheading_font_size }}px; color: {{ subheading_font_color }};">{{ subheading_text }}</h3>
+                {% endif %}
+            </div>
+        {% endif %}
+    </body>
+    </html>
+        <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <title>Simple Calculator</title>
+</head>
+<body>
+
+    <h1>Simple Calculator</h1>
+
+    <form method="POST" action="{% url 'calculate' %}">
+        {% csrf_token %}
+        
+        <label for="num1">Number 1:</label>
+        <input type="number" id="num1" name="num1" required>
+
+        <label for="num2">Number 2:</label>
+        <input type="number" id="num2" name="num2" required>
+
+        <label for="operation">Operation:</label>
+        <select id="operation" name="operation">
+            <option value="add">Add</option>
+            <option value="subtract">Subtract</option>
+            <option value="multiply">Multiply</option>
+            <option value="divide">Divide</option>
+        </select>
+
+        <button type="submit">Calculate</button>
+    </form>
+
+    {% if result is not none %}
+        <h2>Result: {{ result }}</h2>
+    {% endif %}
+</body>
+</html>
