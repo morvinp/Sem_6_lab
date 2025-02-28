@@ -4,23 +4,31 @@
 
 __global__ void odd_even_step(int *da, int n) {
     int i = blockIdx.x * blockDim.x + threadIdx.x;
-    if (i >= n - 1 || i % 2 == 0) return; 
+    if (i >= n - 1) return;  // Ensure no out-of-bounds access
     
-    if (da[i] > da[i + 1]) {
-        int temp = da[i];
-        da[i] = da[i + 1];
-        da[i + 1] = temp;
+    // Odd step: compare elements at odd indices
+    if (i % 2 == 1 && i < n - 1) {
+        if (da[i] > da[i + 1]) {
+            // Swap if out of order
+            int temp = da[i];
+            da[i] = da[i + 1];
+            da[i + 1] = temp;
+        }
     }
 }
 
 __global__ void even_odd_step(int *da, int n) {
     int i = blockIdx.x * blockDim.x + threadIdx.x;
-    if (i >= n - 1 || i % 2 == 1) return; 
+    if (i >= n - 1) return;  // Ensure no out-of-bounds access
     
-    if (da[i] > da[i + 1]) {
-        int temp = da[i];
-        da[i] = da[i + 1];
-        da[i + 1] = temp;
+    // Even step: compare elements at even indices
+    if (i % 2 == 0) {
+        if (da[i] > da[i + 1]) {
+            // Swap if out of order
+            int temp = da[i];
+            da[i] = da[i + 1];
+            da[i + 1] = temp;
+        }
     }
 }
 
@@ -31,10 +39,9 @@ int main() {
 
     int *a = (int*)malloc(n * sizeof(int));
     int *c = (int*)malloc(n * sizeof(int));
-    int *da, *dc;
+    int *da;
 
     cudaMalloc((void**)&da, n * sizeof(int));
-    cudaMalloc((void**)&dc, n * sizeof(int));
 
     printf("Enter the elements: ");
     for (int i = 0; i < n; i++) {
@@ -48,14 +55,13 @@ int main() {
 
     // Perform multiple phases to ensure sorting
     for (int phase = 0; phase < n; phase++) {
-        if (phase % 2 == 0) {
-            // Odd phase (Odd-Even Sort)
-            odd_even_step<<<numBlocks, blockSize>>>(da, n);
-        } else {
-            // Even phase (Even-Odd Sort)
-            even_odd_step<<<numBlocks, blockSize>>>(da, n);
-        }
-        cudaDeviceSynchronize();  // Ensure all threads are done before starting the next phase
+        // Perform Odd-Even Step
+        odd_even_step<<<numBlocks, blockSize>>>(da, n);
+        cudaDeviceSynchronize();  // Ensure all threads finish before the next step
+        
+        // Perform Even-Odd Step
+        even_odd_step<<<numBlocks, blockSize>>>(da, n);
+        cudaDeviceSynchronize();  // Ensure all threads finish before the next step
     }
 
     cudaMemcpy(c, da, n * sizeof(int), cudaMemcpyDeviceToHost);
@@ -67,7 +73,6 @@ int main() {
     printf("\n");
 
     cudaFree(da);
-    cudaFree(dc);
     free(a);
     free(c);
 
