@@ -1,62 +1,78 @@
+#include <iostream>
+#include <string>
 #include <cuda_runtime.h>
-#include <device_launch_parameters.h>
-#include <stdio.h>
-#include <string.h>
 
-#define MAX_LEN 256  // Maximum length of input string
+// CUDA kernel to copy a string in progressively smaller sizes
+__global__ void copyStringProgressively(char* d_result, const char* d_input, int str_len, int n) {
+    int idx = blockIdx.x * blockDim.x + threadIdx.x;
 
-__global__ void transformString(char *S, char *RS, int *pos, int len) {
-    int tid = threadIdx.x;  // Each thread handles one character of S
+    // Each thread copies progressively smaller versions of the string
+    if (idx < n) {
+        // Calculate the number of characters to copy for this index
+        int length_to_copy = str_len - idx;
+        
+        // Calculate the starting index in the result array for this thread
+        int offset = idx * str_len;
 
-    if (tid < len) {
-        int start = pos[tid];  // Starting position in RS
-        for (int j = 0; j <= tid; j++) {  // Copy (i+1) times
-            RS[start + j] = S[tid];
+        // Copy only the first `length_to_copy` characters into the result array
+        for (int i = 0; i < length_to_copy; ++i) {
+            d_result[offset + i] = d_input[i];
+        }
+        
+        // Ensure the next part is null-terminated
+        if (length_to_copy < str_len) {
+            d_result[offset + length_to_copy        std::cout << std::endl;] = '\0';
         }
     }
 }
 
 int main() {
-    char S[MAX_LEN], *d_S, *d_RS;
-    int *d_pos;
-    char RS[MAX_LEN * MAX_LEN];  // Large enough for worst case
-    int pos[MAX_LEN];  // Stores start index for each character in RS
+    std::string input_string = "PCAP";  // Example input string
+    int n = 4;  // Number of progressively smaller versions of the string
 
-    printf("Enter string S: ");
-    scanf("%s", S);
+    int str_len = input_string.length();
+    int result_len = str_len * n;  // Total length of the result string
 
-    int len = strlen(S);
-    int totalLen = 0;
+    // Allocate memory on the device
+    char* d_input;
+    char* d_result;
+    cudaMalloc((void**)&d_input, str_len * sizeof(char));
+    cudaMalloc((void**)&d_result, result_len * sizeof(char));
 
-    // Compute starting indices in RS
-    for (int i = 0; i < len; i++) {
-        pos[i] = totalLen;
-        totalLen += (i + 1);
+    // Copy input string to device memory
+    cudaMemcpy(d_input, input_string.c_str(), str_len * sizeof(char), cudaMemcpyHostToDevice);
+
+    // Define the number of threads and blocks
+    int threadsPerBlock = 256;  // Adjust as needed
+    int blocksPerGrid = (n + threadsPerBlock - 1) / threadsPerBlock; // Ensure enough blocks to cover `n` copies
+
+    // Launch kernel to copy progressively smaller strings
+    copyStringProgressively<<<blocksPerGrid, threadsPerBlock>>>(d_result, d_input, str_len, n);
+
+    // Allocate memory on the host for the result string
+    char* h_result = new char[result_len + 1];  // +1 for null terminator
+
+    // Copy the result back to host memory
+    cudaMemcpy(h_result, d_result, result_len * sizeof(char), cudaMemcpyDeviceToHost);
+
+    // Null-terminate the result string
+    h_result[result_len] = '\0';
+
+    // Output the result
+    std::cout << "Result after progressively shortening the string: " << std::endl;
+    for (int i = 0; i < n; ++i) {
+        int length_to_print = str_len - i;
+        for (int j = 0; j < length_to_print; ++j) {
+            std::cout << h_result[i * str_len + j];
+        }
     }
 
-    // Allocate memory on GPU
-    cudaMalloc((void**)&d_S, len * sizeof(char));
-    cudaMalloc((void**)&d_RS, totalLen * sizeof(char));
-    cudaMalloc((void**)&d_pos, len * sizeof(int));
+    // Free device memory
+    cudaFree(d_input);
+    cudaFree(d_result);
 
-    // Copy data to GPU
-    cudaMemcpy(d_S, S, len * sizeof(char), cudaMemcpyHostToDevice);
-    cudaMemcpy(d_pos, pos, len * sizeof(int), cudaMemcpyHostToDevice);
-
-    // Launch kernel with one block and len threads
-    transformString<<<1, len>>>(d_S, d_RS, d_pos, len);
-
-    // Copy result back
-    cudaMemcpy(RS, d_RS, totalLen * sizeof(char), cudaMemcpyDeviceToHost);
-
-    RS[totalLen] = '\0';  // Null-terminate string
-
-    printf("Output string RS: %s\n", RS);
-
-    // Free GPU memory
-    cudaFree(d_S);
-    cudaFree(d_RS);
-    cudaFree(d_pos);
+    // Free host memory
+    delete[] h_result;
 
     return 0;
 }
