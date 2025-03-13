@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Book Review Voting</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <style>
+        body { font-family: Arial, sans-serif; }
+        .container { width: 50%; margin: auto; text-align: center; }
+        label { display: inline-block; width: 100px; }
+        .vote-result { font-weight: bold; margin-left: 10px; }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h2>How is the book ASP.NET with C# by Vipul Prakashan?</h2>
+    <form id="voteForm">
+        {% for choice, count in votes.items %}
+        <input type="radio" name="choice" value="{{ choice }}"> {{ choice }}
+        <span class="vote-result" id="{{ choice }}_result">0%</span><br>
+        {% endfor %}
+        <button type="submit">Vote</button>
+    </form>
+</div>
+
+<script>
+    $(document).ready(function() {
+        $("#voteForm").submit(function(event) {
+            event.preventDefault();
+            var choice = $("input[name='choice']:checked").val();
+            if (!choice) {
+                alert("Please select an option!");
+                return;
+            }
+
+            $.post("{% url 'submit_vote' %}", {
+                choice: choice,
+                csrfmiddlewaretoken: "{{ csrf_token }}"
+            }, function(data) {
+                $.each(data.results, function(choice, percentage) {
+                    $("#" + choice + "_result").text(percentage + "%");
+                });
+            });
+        });
+    });
+</script>
+
+</body>
+</html>
