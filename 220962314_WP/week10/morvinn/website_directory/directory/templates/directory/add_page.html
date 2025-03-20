@@ -1,0 +1,18 @@
+<!-- directory/templates/directory/add_page.html -->
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Add Page</title>
+</head>
+<body>
+    <h1>Add New Page</h1>
+
+    <form method="POST">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Save</button>
+    </form>
+
+    <a href="{% url 'directory_view' %}">Back to Directory</a>
+</body>
+</html>

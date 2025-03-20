@@ -1,0 +1,29 @@
+<!-- directory/templates/directory/directory.html -->
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Website Directory</title>
+</head>
+<body>
+    <h1>Website Directory</h1>
+
+    <h2>Categories</h2>
+    <ul>
+        {% for category in categories %}
+            <li>
+                <strong>{{ category.name }}</strong> - Visits: {{ category.number_of_visits }} | Likes: {{ category.number_of_likes }}
+                <ul>
+                    {% for page in category.pages.all %}
+                        <li>
+                            <a href="{{ page.url }}" target="_blank">{{ page.title }}</a> - Views: {{ page.views }}
+                        </li>
+                    {% endfor %}
+                </ul>
+            </li>
+        {% endfor %}
+    </ul>
+
+    <a href="{% url 'add_category' %}">Add Category</a>
+    <a href="{% url 'add_page' %}">Add Page</a>
+</body>
+</html>

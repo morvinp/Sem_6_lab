@@ -1,0 +1,18 @@
+<!-- employee_info/templates/employee_info/add_work.html -->
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Add Work Information</title>
+</head>
+<body>
+    <h1>Add Work Information</h1>
+
+    <form method="POST">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Add</button>
+    </form>
+
+    <a href="{% url 'search_company' %}">Search for Employees by Company</a>
+</body>
+</html>

@@ -1,0 +1,18 @@
+<!-- employee_info/templates/employee_info/search_results.html -->
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Search Results</title>
+</head>
+<body>
+    <h1>People working at {{ company_name }}</h1>
+
+    <ul>
+        {% for person_name, city in people_cities %}
+            <li>{{ person_name }} - City: {{ city }}</li>
+        {% endfor %}
+    </ul>
+
+    <a href="{% url 'search_company' %}">Search Again</a>
+</body>
+</html>
