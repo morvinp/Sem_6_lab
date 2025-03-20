@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Search Employees</title>
+</head>
+<body>
+    <h2>Search Employees by Company</h2>
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Search</button>
+    </form>
+
+    {% if employees %}
+        <h3>Results:</h3>
+        <ul>
+            {% for emp in employees %}
+                <li>{{ emp.person_name }} - {{ emp.company_name }}</li>
+            {% empty %}
+                <li>No employees found.</li>
+            {% endfor %}
+        </ul>
+    {% endif %}
+    <a href="{% url 'home' %}">Back to Home</a>
+</body>
+</html>

@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+<head><title>Institutes</title></head>
+<body>
+    <h1>Select an Institute</h1>
+    <form action="{% url 'institute_details' 1 %}" method="GET" id="instituteForm">
+        <select id="instituteSelect">
+            {% for institute in institutes %}
+                <option value="{{ institute.institute_id }}">{{ institute.name }}</option>
+            {% endfor %}
+        </select>
+        <button type="button" onclick="showDetails()">Show Details</button>
+    </form>
+
+    <script>
+        function showDetails() {
+            var select = document.getElementById("instituteSelect");
+            var instituteId = select.value;
+            var url = "/institutes/" + instituteId + "/";  // Generate the correct URL
+            window.location.href = url;
+        }
+    </script>
+</body>
+</html>

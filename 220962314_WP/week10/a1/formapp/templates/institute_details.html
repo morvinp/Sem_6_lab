@@ -1,0 +1,10 @@
+<!DOCTYPE html>
+<html>
+<head><title>{{ institute.name }} Details</title></head>
+<body>
+    <h1>{{ institute.name }}</h1>
+    <p><strong>Institute ID:</strong> {{ institute.institute_id }}</p>
+    <p><strong>Number of Courses:</strong> {{ institute.no_of_courses }}</p>
+    <a href="{% url 'institute_list' %}">Back to List</a>
+</body>
+</html>
