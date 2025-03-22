@@ -1,6 +1,6 @@
 #include <cuda_runtime.h>
-#include <iostream>
-using namespace std;
+#include <stdio.h>
+#include <stdlib.h>
 
 __global__ void transformMatrix(float *d_mat, int M, int N) {
     int row = blockIdx.x * blockDim.x + threadIdx.x;
@@ -17,14 +17,14 @@ __global__ void transformMatrix(float *d_mat, int M, int N) {
 
 int main() {
     int M, N;
-    cout << "Enter matrix dimensions (M N): ";
-    cin >> M >> N;
+    printf("Enter matrix dimensions (M N): ");
+    scanf("%d %d", &M, &N);
 
-    float *h_mat = new float[M * N];
+    float *h_mat = (float *)malloc(M * N * sizeof(float));
 
-    cout << "Enter matrix elements row-wise:" << endl;
+    printf("Enter matrix elements row-wise:\n");
     for (int i = 0; i < M * N; i++) {
-        cin >> h_mat[i];
+        scanf("%f", &h_mat[i]);
     }
 
     float *d_mat;
@@ -39,15 +39,15 @@ int main() {
 
     cudaMemcpy(h_mat, d_mat, M * N * sizeof(float), cudaMemcpyDeviceToHost);
 
-    cout << "Modified matrix:" << endl;
+    printf("Modified matrix:\n");
     for (int i = 0; i < M; i++) {
         for (int j = 0; j < N; j++) {
-            cout << h_mat[i * N + j] << " ";
+            printf("%f ", h_mat[i * N + j]);
         }
-        cout << endl;
+        printf("\n");
     }
 
     cudaFree(d_mat);
-    delete[] h_mat;
+    free(h_mat);
     return 0;
 }

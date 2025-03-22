@@ -1,7 +1,6 @@
 #include <cuda_runtime.h>
-#include <iostream>
-#include <bitset>
-using namespace std;
+#include <stdio.h>
+#include <stdlib.h>
 
 // CUDA kernel to compute 1's complement for non-border elements
 __global__ void transformMatrix(int *d_A, int *d_B, int M, int N) {
@@ -27,23 +26,35 @@ __global__ void transformMatrix(int *d_A, int *d_B, int M, int N) {
 }
 
 // Function to convert a decimal number to trimmed binary string
-string toBinaryTrimmed(int num) {
-    if (num == 0) return "0"; // Special case for zero
-    string binary = bitset<8>(num).to_string();  // Convert to 8-bit binary
-    return binary.substr(binary.find('1')); // Trim leading zeros
+void toBinaryTrimmed(int num, char *binaryStr) {
+    if (num == 0) {
+        sprintf(binaryStr, "0");
+        return;
+    }
+    char temp[33];
+    int index = 0;
+    while (num > 0) {
+        temp[index++] = (num % 2) + '0';
+        num /= 2;
+    }
+    temp[index] = '\0';
+    for (int i = 0; i < index; i++) {
+        binaryStr[i] = temp[index - 1 - i];
+    }
+    binaryStr[index] = '\0';
 }
 
 int main() {
     int M, N;
-    cout << "Enter matrix dimensions (M N): ";
-    cin >> M >> N;
+    printf("Enter matrix dimensions (M N): ");
+    scanf("%d %d", &M, &N);
 
-    int *h_A = new int[M * N];
-    int *h_B = new int[M * N];
+    int *h_A = (int *)malloc(M * N * sizeof(int));
+    int *h_B = (int *)malloc(M * N * sizeof(int));
 
-    cout << "Enter matrix elements row-wise:" << endl;
+    printf("Enter matrix elements row-wise:\n");
     for (int i = 0; i < M * N; i++) {
-        cin >> h_A[i];
+        scanf("%d", &h_A[i]);
     }
 
     int *d_A, *d_B;
@@ -60,21 +71,24 @@ int main() {
 
     cudaMemcpy(h_B, d_B, M * N * sizeof(int), cudaMemcpyDeviceToHost);
 
-    cout << "Modified matrix B (in binary format):" << endl;
+    printf("Modified matrix B (in binary format):\n");
     for (int i = 0; i < M; i++) {
         for (int j = 0; j < N; j++) {
-            if (i > 0 && i < M - 1 && j > 0 && j < N - 1)
-                cout << toBinaryTrimmed(h_B[i * N + j]) << " ";  // Print binary without leading zeros
-            else
-                cout << h_B[i * N + j] << " ";  // Print normal numbers
+            if (i > 0 && i < M - 1 && j > 0 && j < N - 1) {
+                char binaryStr[33];
+                toBinaryTrimmed(h_B[i * N + j], binaryStr);
+                printf("%s ", binaryStr);
+            } else {
+                printf("%d ", h_B[i * N + j]);
+            }
         }
-        cout << endl;
+        printf("\n");
     }
 
     cudaFree(d_A);
     cudaFree(d_B);
-    delete[] h_A;
-    delete[] h_B;
+    free(h_A);
+    free(h_B);
     
     return 0;
 }
