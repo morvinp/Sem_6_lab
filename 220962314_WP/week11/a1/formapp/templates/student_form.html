@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Entry</title>
+</head>
+<body>
+
+    <h2>Enter Student Details</h2>
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Save Student</button>
+    </form>
+
+    <h2>Student List</h2>
+    <ul>
+        {% for student in students %}
+            <li>
+                <strong>ID:</strong> {{ student.student_id }} |
+                <strong>Name:</strong> {{ student.student_name }} |
+                <strong>Course:</strong> {{ student.course_name }} |
+                <strong>DOB:</strong> {{ student.date_of_birth }}
+            </li>
+        {% empty %}
+            <p>No students added yet.</p>
+        {% endfor %}
+    </ul>
+
+</body>
+</html>
