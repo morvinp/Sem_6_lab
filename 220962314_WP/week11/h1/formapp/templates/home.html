@@ -1,0 +1,51 @@
+{% extends "base.html" %}
+
+{% block content %}
+  <h2>Book Management System</h2>
+
+  <div style="display: flex; gap: 20px;">
+    <!-- Author Form -->
+    <div>
+      <h3>Add Author</h3>
+      <form method="post">
+        {% csrf_token %}
+        {{ author_form.as_p }}
+        <button type="submit" name="author_submit">Save Author</button>
+      </form>
+    </div>
+
+    <!-- Publisher Form -->
+    <div>
+      <h3>Add Publisher</h3>
+      <form method="post">
+        {% csrf_token %}
+        {{ publisher_form.as_p }}
+        <button type="submit" name="publisher_submit">Save Publisher</button>
+      </form>
+    </div>
+
+    <!-- Book Form -->
+    <div>
+      <h3>Add Book</h3>
+      <form method="post">
+        {% csrf_token %}
+        {{ book_form.as_p }}
+        <button type="submit" name="book_submit">Save Book</button>
+      </form>
+    </div>
+  </div>
+
+  <hr>
+
+  <!-- Book List -->
+  <h3>Book List</h3>
+  <ul>
+    {% for book in books %}
+      <li>
+        <strong>{{ book.title }}</strong> - Published by {{ book.publisher }} ({{ book.publication_date }})<br>
+        Authors: {% for author in book.authors.all %} {{ author.first_name }} {{ author.last_name }}{% if not forloop.last %}, {% endif %} {% endfor %}
+      </li>
+    {% endfor %}
+  </ul>
+
+{% endblock %}
